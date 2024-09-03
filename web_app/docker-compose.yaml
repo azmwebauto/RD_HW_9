@@ -13,7 +13,7 @@ services:
       - "8000:8000"
     env_file:
       - '.env'
-    command: uvicorn app.main:app --host ${HOST} --port ${PORT}
+    command: python -m uvicorn app.main:app --host ${HOST} --port ${PORT}
     depends_on:
       postgres:
         condition: service_started
