@@ -68,3 +68,16 @@ async def create_cves(cves: schemas.PostManyCves, db_session: AsyncSession = Dep
     except Exception as e:
         logging.exception(e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+
+
+@router.patch("/cve_id/{cve_id}", status_code=status.HTTP_200_OK)
+async def update_one(
+        data: schemas.UpdateCve,
+        cve_id: str = Path(..., title="The ID of the CVE", alias='cve_id'),
+        db_session: AsyncSession = Depends(get_db)):
+    try:
+        response = await crud.CveRepository.update_one_by_cve_id(db_session, cve_id, data.model_dump())
+        return response
+    except Exception as e:
+        logging.error(e)
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

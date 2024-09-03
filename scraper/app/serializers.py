@@ -50,8 +50,8 @@ def serialize_cve_record(record: dict) -> dict | None:
 
     return dict(
         cve_id=cve_id,
-        published_date=published_date,
-        last_modified_date=last_modified_date,
+        published_date=str(published_date),
+        last_modified_date=str(last_modified_date),
         title=cna.get('descriptions', [{}])[0].get('value'),
         description=cna.get('descriptions', [{}])[0].get('value'),
         problem_types=", ".join(
@@ -60,5 +60,4 @@ def serialize_cve_record(record: dict) -> dict | None:
                 for pt in cna.get('problemTypes', [])
             ]
         ) if cna.get('problemTypes') else None,
-        raw_info=record
     )

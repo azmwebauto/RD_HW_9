@@ -26,3 +26,5 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 # APP config
 HOST = os.environ.get('HOST', '0.0.0.0')
 PORT = int(os.environ.get('PORT', 8080))
+
+MAX_CVE_ITEMS = int(os.getenv('MAX_CVE_ITEMS', 1000))

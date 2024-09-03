@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, PlainTextResponse
 
 from app import cves, config
 
@@ -15,7 +15,7 @@ async def root():
 
 @app.get("/status")
 async def get_status():
-    return 'OK'
+    return PlainTextResponse('OK')
 
 
 if __name__ == '__main__':

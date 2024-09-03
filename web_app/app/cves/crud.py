@@ -1,7 +1,7 @@
 import logging
 from typing import Mapping, Sequence
 
-from sqlalchemy import insert, select, delete
+from sqlalchemy import insert, select, delete, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.cves import models
@@ -45,3 +45,10 @@ class CveRepository:
         statement = select(models.CveModel).limit(limit).offset(offset)
         res = await session.execute(statement)
         return res.scalars().all()
+
+    @staticmethod
+    async def update_one_by_cve_id(session: AsyncSession, cve_id: str, data: Mapping) -> models.CveModel | None:
+        statement = update(models.CveModel).where(models.CveModel.cve_id == cve_id).returning(models.CveModel)
+        res = await session.execute(statement, data)
+        await session.commit()
+        return res.scalars().first()

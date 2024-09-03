@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "scraper"
+version = "0.1.0"
+description = ""
+authors = ["undefined <azmolwebautomation@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.27.2"
+celery = {extras = ["redis"], version = "^5.4.0"}
+aiofiles = "^24.1.0"
+gitpython = "^3.1.43"
+python-dotenv = "^1.0.1"
+pytest-order = "^1.3.0"
+pytest-asyncio = "^0.24.0"
+pydantic = "^2.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

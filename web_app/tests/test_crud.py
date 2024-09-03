@@ -73,3 +73,11 @@ class TestCveRepo:
             schema = schemas.PostCve(**cve)
         except ValidationError as e:
             assert type(e) is ValidationError
+
+    async def test_update_one(self, session):
+        await self.test_create(session)
+        cve = dict(description='test Updated')
+
+        cve = await crud.CveRepository.update_one_by_cve_id(session, 'CVE-1234-1234', cve)
+        print(cve)
+        assert cve.description == 'test Updated'
