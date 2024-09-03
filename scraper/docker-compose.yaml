@@ -3,8 +3,8 @@ services:
     image: redis:7-alpine
     restart: always
     ports:
-      - '${REDIS_PORT}:${REDIS_PORT}'
-    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
+      - '6379:${REDIS_PORT}'
+    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD} --user ${REDIS_USER}"
     volumes:
       - ./redis:/data
     env_file:
@@ -16,9 +16,15 @@ services:
       - ${FLOWER_PORT}:${FLOWER_PORT}
     env_file:
       - .env
+    depends_on:
+      - redis
   scraper:
     build: .
     command: "poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
+    depends_on:
+      - redis
   beat:
     build: .
     command: "poetry run celery -A app.tasks.celery_app beat --loglevel=DEBUG"
+    depends_on:
+      - redis
