@@ -23,6 +23,8 @@ services:
     command: "poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
     depends_on:
       - redis
+    volumes:
+      - ./cvelistV5:./cvelistV5
   beat:
     build: .
     command: "poetry run celery -A app.tasks.celery_app beat --loglevel=DEBUG"
