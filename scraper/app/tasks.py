@@ -7,7 +7,6 @@ from app.main import main
 
 celery_app = Celery(backend=config.REDIS_URI, broker=config.REDIS_URI)
 
-
 @celery_app.on_after_configure.connect
 def setup_periodic_tasks(sender: Celery, **kwargs):
     sender.add_periodic_task(config.SCRAPING_SCHEDULE_IN_MINUTES * 60, periodic_scraping.s(),
