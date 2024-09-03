@@ -11,14 +11,14 @@ services:
       - .env
   flower:
     build: .
-    command: "celery -A app.tasks.celery_app flower --basic-auth=${FLOWER_USER}:${FLOWER_PASSWORD}"
+    command: "poetry run celery -A app.tasks.celery_app flower --basic-auth=${FLOWER_USER}:${FLOWER_PASSWORD}"
     ports:
       - ${FLOWER_PORT}:${FLOWER_PORT}
     env_file:
       - .env
   scraper:
     build: .
-    command: "celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
+    command: "poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
   beat:
     build: .
-    command: "celery -A app.tasks.celery_app beat --loglevel=DEBUG"
+    command: "poetry run celery -A app.tasks.celery_app beat --loglevel=DEBUG"
