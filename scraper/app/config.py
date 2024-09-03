@@ -16,7 +16,6 @@ REDIS_USER = os.getenv('REDIS_USER')
 REDIS_HOST = os.getenv('REDIS_HOST')
 REDIS_PORT = os.getenv('REDIS_PORT')
 REDIS_URI = f'redis://{REDIS_USER}:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}'
-breakpoint()
 # logging config
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
