@@ -7,11 +7,10 @@ services:
       - ./data:/var/lib/postgresql/data
     env_file:
       - '.env'
-  app:
-    build:
-      .
+  web_app:
+    build: .
     ports:
-      - "8080:8080"
+      - "8000:8000"
     env_file:
       - '.env'
     command:

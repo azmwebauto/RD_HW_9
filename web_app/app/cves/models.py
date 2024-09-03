@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from web_app.db import Base
+from app.db import Base
 
 
 class CveModel(Base):

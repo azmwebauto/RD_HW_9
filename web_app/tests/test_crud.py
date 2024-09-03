@@ -4,7 +4,7 @@ import pytest
 import sqlalchemy
 from pydantic_core._pydantic_core import ValidationError
 
-from web_app.cves import crud, schemas
+from app.cves import crud, schemas
 
 
 @pytest.mark.asyncio
@@ -12,7 +12,7 @@ class TestCveRepo:
 
     @pytest.mark.order(1)
     async def test_create(self, session):
-        cve = schemas.PostCve(raw_info={'test': 'Test'}, cve_id='CVE-1234-1234',
+        cve = schemas.PostCve(cve_id='CVE-1234-1234',
                               description='test',
                               title='test',
                               problem_types='CWE-78', published_date=datetime.datetime(2017, 11, 2, 16, 0),

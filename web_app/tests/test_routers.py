@@ -1,17 +1,23 @@
 import pytest
 from pydantic_core._pydantic_core import ValidationError
 
-from web_app.cves import schemas
-from web_app.cves.router import get_one_by_id, get_all, create_cves, delete_one_by_id, get_one_by_cve_id
+from app.cves import schemas
+from app.cves.router import get_one_by_id, get_all, create_cves, delete_one_by_id, get_one_by_cve_id
+from app.main import get_status
 
 
 @pytest.mark.asyncio
 class TestCveRouter:
+    @pytest.mark.asyncio
+    async def test_get_status(self):
+        response = await get_status()
+        print(response)
+        assert response == 'OK'
 
     @pytest.mark.order(1)
     async def test_create_one(self, session):
         cves = {
-            "cves": [
+            "data": [
                 {
                     "raw_info": {},
                     "cve_id": "CVE-1234-1234",
@@ -122,7 +128,7 @@ class TestCveRouter:
 
     async def test_create_many(self, session):
         cves = {
-            "cves": [
+            "data": [
                 {
                     "raw_info": {},
                     "cve_id": f"CVE-1231-{i}",
@@ -141,7 +147,7 @@ class TestCveRouter:
 
     async def test_failed_create_many(self, session):
         cves = {
-            "cves": [
+            "data": [
                 {
                     "raw_info": {},
                     "cve_id": f"CVE-1231-{i}",

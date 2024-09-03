@@ -4,7 +4,7 @@ from typing import Mapping, Sequence
 from sqlalchemy import insert, select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from web_app.cves import models
+from app.cves import models
 
 
 class CveRepository:

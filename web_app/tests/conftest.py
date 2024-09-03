@@ -3,8 +3,8 @@ import asyncio
 import pytest
 import pytest_asyncio
 
-from web_app import db
-from web_app.config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT
+from app import db
+from app.config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT
 
 
 @pytest.fixture(scope="session")

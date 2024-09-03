@@ -6,7 +6,6 @@ from pydantic import field_serializer, Field, field_validator
 
 
 class PostCve(BaseModel):
-    raw_info: dict
     cve_id: str
     description: str | None = None
     title: str | None = None
@@ -19,7 +18,6 @@ class PostCve(BaseModel):
         json_schema_extra = {
             "examples": [
                 {
-                    'raw_info': {},
                     'cve_id': 'CVE-1234-1234',
                     'description': 'Description',
                     'title': 'Title',
@@ -54,8 +52,13 @@ class ReadCve(PostCve):
 
 
 class PostManyCves(BaseModel):
-    cves: list[PostCve] = Field(max_items=1000)
+    data: list[PostCve] = Field(max_items=1000)
 
 
 class DeleteResult(BaseModel):
     result: int
+
+
+class PostCveSuccess(BaseModel):
+    message: str
+    amount_added: int
