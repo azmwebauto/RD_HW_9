@@ -15,3 +15,7 @@ services:
       - '.env'
     command:
       - "uvicorn app.main:app --host=${HOST} --port=${PORT}"
+    depends_on:
+      postgres:
+        condition: service_started
+        restart: true
