@@ -39,13 +39,10 @@ async def post_new_cves():
 
 
 async def main():
-    if not Path(config.LOCAL_PATH).exists():
-        logging.info('Pulling all CVEs')
-        logging.info(f"Cloning repository from {config.REPO_URL} to {config.LOCAL_PATH}")
-        Repo.clone_from(config.REPO_URL, config.LOCAL_PATH, depth=1)
-        await post_new_cves()
-    else:
-        logging.info('Cves found in local repository')
+    logging.info('Pulling all CVEs')
+    logging.info(f"Cloning repository from {config.REPO_URL} to {config.LOCAL_PATH}")
+    Repo.clone_from(config.REPO_URL, config.LOCAL_PATH, depth=1)
+    await post_new_cves()
 
 
 if __name__ == '__main__':

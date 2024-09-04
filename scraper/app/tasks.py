@@ -2,8 +2,7 @@ import asyncio
 
 from celery import Celery
 
-from app import config, main
-from app.main import main
+from app import config, pull_repo
 
 celery_app = Celery(backend=config.REDIS_URI, broker=config.REDIS_URI)
 
@@ -17,5 +16,5 @@ def setup_periodic_tasks(sender: Celery, **kwargs):
 @celery_app.task(name='periodic_scraping')
 def periodic_scraping():
     loop = asyncio.new_event_loop()
-    loop.run_until_complete(main())
+    loop.run_until_complete(pull_repo.main())
     loop.close()

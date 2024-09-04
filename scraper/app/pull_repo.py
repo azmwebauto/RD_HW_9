@@ -53,6 +53,7 @@ async def main():
     else:
         logging.error("CVE folder not found")
 
+
 if __name__ == '__main__':
     start = time.perf_counter()
     asyncio.run(main())

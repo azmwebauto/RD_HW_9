@@ -23,12 +23,12 @@ services:
     build: .
     image: cve-scraper
     command: >
-      bash -c "poetry run python -m app.main && 
+      bash -c "poetry run python -m app.clone_repo && 
       poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
     depends_on:
       - redis
     volumes:
-      - ./cvelistV5/cves:/app/cvelistV5/cves
+      - ./cvelistV5:/src/cvelistV5
   beat:
     build: .
     image: cve-scraper
