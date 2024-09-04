@@ -21,8 +21,8 @@ services:
   scraper:
     build: .
     command: >
-      poetry run python -m app.main && 
-      poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery
+      bash -c "poetry run python -m app.main && 
+      poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
     depends_on:
       - redis
     volumes:
