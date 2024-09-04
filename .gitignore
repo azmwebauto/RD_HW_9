@@ -1,5 +1,6 @@
 celerybeat-*
-
+./scraper/redis
+./web_app/data
 .idea
 cvelistV5
 # Byte-compiled / optimized / DLL files
