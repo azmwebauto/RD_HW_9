@@ -41,7 +41,7 @@ async def update_existing_using_delta():
 
 
 async def main():
-    if Path(config.LOCAL_PATH).exists():
+    if Path(config.LOCAL_PATH / '.git').exists():
         logging.info("Starting fetch_cve_data")
         get_status_response = await api_interface.Service.get_status()
         assert get_status_response.is_success

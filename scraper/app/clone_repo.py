@@ -39,10 +39,13 @@ async def post_new_cves():
 
 
 async def main():
-    logging.info('Pulling all CVEs')
-    logging.info(f"Cloning repository from {config.REPO_URL} to {config.LOCAL_PATH}")
-    Repo.clone_from(config.REPO_URL, config.LOCAL_PATH, depth=1)
-    await post_new_cves()
+    if not os.path.exists(config.LOCAL_PATH / '.git'):
+        logging.info('Pulling all CVEs')
+        logging.info(f"Cloning repository from {config.REPO_URL} to {config.LOCAL_PATH}")
+        Repo.clone_from(config.REPO_URL, config.LOCAL_PATH, depth=1)
+        await post_new_cves()
+    else:
+        logging.critical('Cloning repository from GitHub already exists')
 
 
 if __name__ == '__main__':
