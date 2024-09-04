@@ -5,6 +5,7 @@ from itertools import islice
 
 import aiofiles.os
 
+from app import config
 
 TIME_FORMATS = (
     '%Y-%m-%dT%H:%M:%S.%fZ',
@@ -20,7 +21,7 @@ def batcher(iterable, batch_size):
         yield batch
 
 
-semaphore = asyncio.Semaphore(OPENED_FILES_SEMAPHORE_AMOUNT)
+semaphore = asyncio.Semaphore(config.OPENED_FILES_SEMAPHORE_AMOUNT)
 
 
 async def parse_json(file_path):
