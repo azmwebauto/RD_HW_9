@@ -10,6 +10,7 @@ services:
     env_file:
       - .env
   flower:
+    image: cve-scraper
     build: .
     command: poetry run celery -A app.tasks.celery_app flower
     ports:
@@ -20,15 +21,17 @@ services:
       - redis
   scraper:
     build: .
+    image: cve-scraper
     command: >
       bash -c "poetry run python -m app.main && 
       poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
     depends_on:
       - redis
     volumes:
-      - ./cvelistV5:/cvelistV5
+      - ./cvelistV5:/app/cvelistV5
   beat:
     build: .
+    image: cve-scraper
     command: poetry run celery -A app.tasks.celery_app beat --loglevel=DEBUG
     depends_on:
       - redis
