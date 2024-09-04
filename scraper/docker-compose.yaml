@@ -24,7 +24,7 @@ services:
     image: cve-scraper
     command: >
       bash -c "poetry run python -m app.clone_repo && 
-      poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery"
+      poetry run celery -A app.tasks.celery_app worker -n server_worker --loglevel=INFO -Q celery -P solo"
     depends_on:
       - redis
     volumes:
