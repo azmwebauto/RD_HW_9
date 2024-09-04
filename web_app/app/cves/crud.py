@@ -1,13 +1,20 @@
 import logging
 from typing import Mapping, Sequence
 
-from sqlalchemy import insert, select, delete, update
+from pyexpat import model
+from sqlalchemy import insert, select, delete, update, func, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.cves import models
 
 
 class CveRepository:
+    @staticmethod
+    async def get_total_amount(session):
+        stmt = select(func.count()).select_from(models.CveModel)
+        result = await session.execute(stmt)
+        return result.scalar()
+
     @staticmethod
     async def delete_one_by_id(session: AsyncSession, id_: int):
         statement = delete(models.CveModel).where(models.CveModel.id == id_).returning(models.CveModel.id)

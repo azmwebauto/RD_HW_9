@@ -9,7 +9,6 @@ from app.cves import crud, schemas
 
 @pytest.mark.asyncio
 class TestCveRepo:
-
     @pytest.mark.order(1)
     async def test_create(self, session):
         cve = schemas.PostCve(cve_id='CVE-1234-1234',
@@ -20,6 +19,12 @@ class TestCveRepo:
         db_res = await crud.CveRepository.create_many(session, [cve.model_dump()])
         print(db_res)
         assert len(db_res) > 0
+
+    async def test_get_amount(self, session):
+        await self.test_create(session)
+        res = await crud.CveRepository.get_total_amount(session)
+        print(res)
+        assert res == 1
 
     @pytest.mark.order(2)
     async def test_get_many(self, session):

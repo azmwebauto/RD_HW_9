@@ -50,9 +50,14 @@ async def get_all(
         limit: Annotated[int, Query(gt=0, le=1_000)] = 100,
         offset: Annotated[int, Query(ge=0)] = 0,
         db_session: AsyncSession = Depends(get_db)
-) -> list[schemas.ReadCve]:
+) -> schemas.GetCves:
     result = await crud.CveRepository.get_many(db_session, limit, offset)
-    return [schemas.ReadCve.model_validate(i) for i in result]
+    total_amount: int = await crud.CveRepository.get_total_amount(db_session)
+
+    return_value = schemas.GetCves(
+        data=[schemas.ReadCve.model_validate(i) for i in result], total_amount=total_amount
+    )
+    return return_value
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

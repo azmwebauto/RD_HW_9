@@ -9,3 +9,5 @@ RUN pip install poetry
 RUN poetry install
 
 COPY . .
+
+RUN poetry run python -m app.main

@@ -56,6 +56,11 @@ class ReadCve(PostCve):
     problem_types: str
 
 
+class GetCves(BaseModel):
+    data: list[ReadCve]
+    total_amount: int
+
+
 class PostManyCves(BaseModel):
     data: list[PostCve] = Field(max_items=config.MAX_CVE_ITEMS)
 

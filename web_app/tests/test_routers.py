@@ -65,7 +65,7 @@ class TestCveRouter:
         print(result)
         result = await get_all(db_session=session)
         print(result)
-        assert result == []
+        assert result.data == []
 
     @pytest.mark.order(6)
     async def test_failed_create_one(self, session):
@@ -85,7 +85,7 @@ class TestCveRouter:
         try:
             many_cves = schemas.PostManyCves(**cves)
             result = await create_cves(db_session=session, cves=many_cves)
-            print(result)
+            print(result.data)
         except ValidationError as e:
             assert type(e) is ValidationError
         cves = {
@@ -124,7 +124,7 @@ class TestCveRouter:
         except ValidationError as e:
             assert type(e) is ValidationError
         result = await get_all(db_session=session)
-        assert result == []
+        assert result.data == []
 
     async def test_create_many(self, session):
         cves = {
@@ -143,7 +143,7 @@ class TestCveRouter:
         result = await create_cves(db_session=session, cves=schemas.PostManyCves(**cves))
         print(result)
         result = await get_all(db_session=session)
-        assert len(result) == 100
+        assert len(result.data) == 100
 
     async def test_failed_create_many(self, session):
         cves = {
@@ -162,4 +162,4 @@ class TestCveRouter:
         result = await create_cves(db_session=session, cves=schemas.PostManyCves(**cves))
         print(result)
         result = await get_all(db_session=session, limit=10_000)
-        assert len(result) == 1000
+        assert len(result.data) == 1000
