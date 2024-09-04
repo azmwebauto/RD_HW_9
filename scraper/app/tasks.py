@@ -16,4 +16,6 @@ def setup_periodic_tasks(sender: Celery, **kwargs):
 
 @celery_app.task(name='periodic_scraping')
 def periodic_scraping():
-    asyncio.run(main())
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
