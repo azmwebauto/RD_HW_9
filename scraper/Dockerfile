@@ -10,4 +10,4 @@ RUN poetry install
 
 COPY . .
 
-RUN poetry run python -m app.main
+CMD poetry run python -m app.main
