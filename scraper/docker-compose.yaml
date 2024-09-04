@@ -28,7 +28,7 @@ services:
     depends_on:
       - redis
     volumes:
-      - ./cvelistV5:/app/cvelistV5
+      - ./cvelistV5/cves:/app/cvelistV5/cves
   beat:
     build: .
     image: cve-scraper

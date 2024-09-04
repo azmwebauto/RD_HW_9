@@ -9,6 +9,7 @@ services:
       - '.env'
   web_app:
     build: .
+    image: cve-api
     ports:
       - "${PORT}:${PORT}"
     env_file:
