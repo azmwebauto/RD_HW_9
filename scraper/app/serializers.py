@@ -1,3 +1,4 @@
+import asyncio
 import json
 from datetime import datetime
 from itertools import islice
@@ -18,10 +19,14 @@ def batcher(iterable, batch_size):
         yield batch
 
 
+semaphore = asyncio.Semaphore(1000)
+
+
 async def parse_json(file_path):
-    async with aiofiles.open(file_path, 'r', encoding='utf-8') as f:
-        data = await f.read()
-        return json.loads(data)
+    async with semaphore:
+        async with aiofiles.open(file_path, 'r', encoding='utf-8') as f:
+            data = await f.read()
+            return json.loads(data)
 
 
 def parse_datetime(datetime_str):
