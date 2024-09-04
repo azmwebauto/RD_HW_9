@@ -89,7 +89,7 @@ async def post_new_cves():
 
 if __name__ == '__main__':
     start = time.perf_counter()
-    asyncio.run(post_new_cves())
-    # asyncio.run(main())
+    # asyncio.run(post_new_cves())
+    asyncio.run(main())
     end = time.perf_counter()
     logging.info(f'Finished in {end - start:.2f} seconds')
