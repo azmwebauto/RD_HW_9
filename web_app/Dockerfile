@@ -10,4 +10,4 @@ RUN poetry install
 
 COPY . .
 
-RUN alembic upgrade heads
+RUN poetry run alembic upgrade heads

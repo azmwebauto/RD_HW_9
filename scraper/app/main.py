@@ -76,7 +76,7 @@ async def post_new_cves():
                     lambda file: file is not None, (
                         serializers.serialize_cve_record(file)
                         for file in await asyncio.gather(
-                        *tuple(serializers.parse_json(file) for file in batched_files)
+                            *tuple(serializers.parse_json(file) for file in batched_files)
                     )
                     )
                 )
@@ -89,6 +89,7 @@ async def post_new_cves():
 
 if __name__ == '__main__':
     start = time.perf_counter()
-    asyncio.run(main())
+    asyncio.run(post_new_cves())
+    # asyncio.run(main())
     end = time.perf_counter()
     logging.info(f'Finished in {end - start:.2f} seconds')

@@ -4,7 +4,7 @@ from pydantic_core._pydantic_core import ValidationError
 from app.cves import schemas
 from app.cves.router import get_one_by_id, get_all, create_cves, delete_one_by_id, get_one_by_cve_id
 from app.main import get_status
-from app import config
+
 
 @pytest.mark.asyncio
 class TestCveRouter:
@@ -12,7 +12,7 @@ class TestCveRouter:
     async def test_get_status(self):
         response = await get_status()
         print(response)
-        assert response == 'OK'
+        assert response.body.decode() == 'OK'
 
     @pytest.mark.order(1)
     async def test_create_one(self, session):

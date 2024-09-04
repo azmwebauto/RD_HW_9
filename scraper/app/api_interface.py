@@ -19,8 +19,8 @@ class Service:
     @classmethod
     async def post_data(cls, results: list[dict]) -> httpx.Response:
         try:
-            logging.info(results)
             results = tuple(results)
+            logging.info(f'{len(results) = }')
             """
             POST http://localhost:8000/cves/
     

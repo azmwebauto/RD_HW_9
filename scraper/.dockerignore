@@ -2,3 +2,4 @@ tests
 .venv
 *.pyc
 docker-compose.yaml
+cvelistV5
